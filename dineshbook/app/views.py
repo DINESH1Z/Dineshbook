@@ -3,6 +3,7 @@ from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
 from .models import profile
 # Create your views here.
 
@@ -26,16 +27,16 @@ def settings(request):
             user_profile.bio = bio
             user_profile.location = location
             user_profile.save()
-            if request.FILES.get('image') != None:
-                image = request.FILES.get('image')
-                bio = request.POST['bio']
-                location = request.POST['location']
+        if request.FILES.get('image') != None:
+            image = request.FILES.get('image')
+            bio = request.POST['bio']
+            location = request.POST['location']
                 
-                user_profile.profileimg = image
-                user_profile.bio = bio
-                user_profile.location = location
-                user_profile.save()
-                return redirect('settings')
+            user_profile.profileimg = image
+            user_profile.bio = bio
+            user_profile.location = location
+            user_profile.save()
+        return redirect('settings')
 
     return render(request, 'setting.html', {'user_profile':user_profile})
 
