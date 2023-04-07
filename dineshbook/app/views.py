@@ -28,6 +28,8 @@ def upload(request):
     else:
         return redirect('/')
 
+
+
 @login_required(login_url='signin')
 def settings(request):
     print(request.user)
@@ -37,6 +39,7 @@ def settings(request):
 
         if request.FILES.get('image') == None:
             image = user_profile.profileimg
+            print(f"The reuest is {request.POST}")
             bio = request.POST['bio']
             location = request.POST['location']
 
